@@ -91,6 +91,12 @@ export class LoanEditComponent implements OnInit {
 
     onSave() {
         this.errorMessage = '';
+
+        if(this.loan.client == null || this.loan.game.id == 0) {
+            this.errorMessage = 'El cliente y el juego son obligatorios.';
+            return;
+        }
+
         if (this.isEndDateBeforeBeginDate()) {
             this.errorMessage = 'La fecha de fin no puede ser anterior a la fecha de inicio.';
             return;
