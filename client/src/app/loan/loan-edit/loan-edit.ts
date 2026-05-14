@@ -11,11 +11,37 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { Pageable } from '../../core/model/page/Pageable';
+import { DialogConfirmationComponent } from '../../core/dialog-confirmation/dialog-confirmation';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
     selector: 'app-loan-edit',
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule ],
+    imports: [
+      FormsModule,
+      ReactiveFormsModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatButtonModule,
+      MatSelectModule,
+      MatButtonModule,
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,],
     templateUrl: './loan-edit.html',
     styleUrl: './loan-edit.scss',
 })
@@ -24,7 +50,6 @@ export class LoanEditComponent implements OnInit {
     clients: Client[] = [];
     games: Game[] = [];
     errorMessage: string = '';
-    serverErrorMessage: string = '';
 
     constructor(
         public dialogRef: MatDialogRef<LoanEditComponent>,
@@ -66,7 +91,6 @@ export class LoanEditComponent implements OnInit {
 
     onSave() {
         this.errorMessage = '';
-        this.serverErrorMessage = '';
         if (this.isEndDateBeforeBeginDate()) {
             this.errorMessage = 'La fecha de fin no puede ser anterior a la fecha de inicio.';
             return;
@@ -77,7 +101,7 @@ export class LoanEditComponent implements OnInit {
                 this.dialogRef.close();
             },
             error: (error) => {
-                this.serverErrorMessage = 'Error al guardar el préstamo. Comprueba que los datos sean correctos.';
+                this.errorMessage = error.error ;
                 console.error('Error saving loan:', error);
             }
         });
@@ -92,6 +116,7 @@ export class LoanEditComponent implements OnInit {
             return null;
         }
         const date = value instanceof Date ? value : new Date(value);
+
         return isNaN(date.getTime()) ? null : date;
     }
 

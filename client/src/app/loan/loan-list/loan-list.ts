@@ -19,19 +19,7 @@ import { Game } from '../../game/model/Game';
 import { ClientService } from '../../client/client';
 import { GameService } from '../../game/game';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
-
-const DATE_FORMAT = {
-  parse: {
-    dateInput: 'yyyy-MM-dd',
-  },
-  display: {
-    dateInput: 'yyyy-MM-dd',
-    monthYearLabel: 'MMM yyyy',
-    dateA11yLabel: 'yyyy-MM-dd',
-    monthYearA11yLabel: 'MMM yyyy',
-  },
-};
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
     selector: 'app-loan-list',
@@ -51,11 +39,6 @@ const DATE_FORMAT = {
 ],
     templateUrl: './loan-list.html',
     styleUrls: ['./loan-list.scss'],
-    providers: [
-
-    { provide: MAT_DATE_FORMATS, useValue: DATE_FORMAT }
-
-    ],
 })
 export class LoanListComponent implements OnInit {
     pageNumber: number = 0;
