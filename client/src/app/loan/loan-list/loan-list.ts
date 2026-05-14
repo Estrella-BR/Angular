@@ -147,6 +147,10 @@ export class LoanListComponent implements OnInit {
         const game = this.filterGame.id ? this.filterGame : undefined;
         const date = this.filterDate ? this.filterDate: undefined;
 
+        if (event == null) {
+            this.pageNumber = 0;
+        }
+
         const pageable: Pageable = {
             pageNumber: this.pageNumber,
             pageSize: this.pageSize,
