@@ -24,11 +24,5 @@ export class ClientService {
   deleteClient(idClient : number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${idClient}`);
   }
-
-  checkNameExists(name: string, id?: number): Observable<boolean> {
-    return this.getClients().pipe(
-      map(clients => clients.some(client => client.name.trim().toLowerCase() === name.trim().toLowerCase() && client.id !== id))
-    );
-  }
 }
 

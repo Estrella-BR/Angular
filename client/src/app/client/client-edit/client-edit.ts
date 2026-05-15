@@ -34,15 +34,14 @@ export class ClientEditComponent {
             return;
         }
 
-        this.ClientService.checkNameExists(this.client.name, this.client.id).subscribe(exists => {
-            if (exists) {
-                this.errorMessage = 'Ya existe un cliente con este nombre.';
-                return;
-            }
-
-            this.ClientService.saveClient(this.client).subscribe(() => {
+        this.ClientService.saveClient(this.client).subscribe({
+            next: () => {
                 this.dialogRef.close();
-            });
+            },
+            error: (error) => {
+                this.errorMessage = error.error ;
+                console.error('Error saving client:', error);
+            }
         });
     }
 
